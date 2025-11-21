@@ -82,10 +82,7 @@ jobs:
             cross: false
     steps:
       - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          default: true
+      - uses: dtolnay/rust-toolchain@stable
       
       - name: Install OpenSSL
         if: matrix.os == 'ubuntu-latest'
