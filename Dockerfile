@@ -1,4 +1,4 @@
-FROM rust:bookworm as builder
+FROM rust:bookworm AS builder
 RUN apt update && apt install -y libssl-dev
 WORKDIR /home/rust/src
 COPY . .
