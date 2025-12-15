@@ -41,44 +41,13 @@ jobs:
             target: armv7-unknown-linux-musleabihf
             exe: rathole
             cross: true
-          - os: ubuntu-latest
-            target: mips-unknown-linux-gnu
-            exe: rathole
-            cross: true
-          - os: ubuntu-latest
-            target: mips-unknown-linux-musl
-            exe: rathole
-            cross: true
-          - os: ubuntu-latest
-            target: mipsel-unknown-linux-gnu
-            exe: rathole
-            cross: true
-          - os: ubuntu-latest
-            target: mipsel-unknown-linux-musl
-            exe: rathole
-            cross: true
-          - os: ubuntu-latest
-            target: mips64-unknown-linux-gnuabi64
-            exe: rathole
-            cross: true
-          - os: ubuntu-latest
-            target: mips64el-unknown-linux-gnuabi64
-            exe: rathole
-            cross: true
-
           - os: macos-latest
             target: x86_64-apple-darwin
             exe: rathole
             cross: false
-          
           - os: macos-latest
             target: aarch64-apple-darwin
             exe: rathole
-            cross: false
-
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-            exe: rathole.exe
             cross: false
     steps:
       - uses: actions/checkout@v2
@@ -90,6 +59,9 @@ jobs:
       - name: Install OpenSSL
         if: matrix.os == 'macos-latest'
         run: brew install openssl@3
+      - name: Install musl-tools
+        if: contains(matrix.target, 'musl')
+        run: sudo apt install -y musl-tools
       
       # Native build
       - name: Install target
